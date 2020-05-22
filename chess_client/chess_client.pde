@@ -11,7 +11,7 @@ boolean firstclick;
 int row1, col1, row2, col2;
 int gs=75; //gridsize
 boolean turn=false;
-int timer=60;
+int timer=5;
 int countdown=60;
 
 char grid[][]={
@@ -77,6 +77,7 @@ void draw() {
   
   if (timer==0) {
   turn=false;
+  myclient.write ("t");
   }
 }
 
@@ -154,7 +155,7 @@ void mousePressed() {
     row1=mouseY/gs;
     col1= mouseX/gs;
     firstclick=false;
-  } else {
+  } else if (!firstclick&&turn) {
     row2= mouseY/gs;
     col2=mouseX/gs;
     if (!(row2==row1 && col2==col1)) {

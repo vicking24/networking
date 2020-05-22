@@ -143,14 +143,19 @@ void receive() {
   Client myclient= myserver.available();
   if (myclient!=null) {
     String incoming= myclient.readString();
+    
+    if (incoming.equals("t")) {
+    turn=true;
+    }else {
     int r1= int(incoming.substring (0, 1));
     int c1= int (incoming.substring (2, 3));
     int r2= int(incoming.substring (4, 5));
     int c2= int (incoming.substring (6, 7));
-    //boolean t= boolean (incoming.substring (8, 9));
     grid[r2][c2]=grid [r1][c1];
     grid[r1][c1]=' ';
     turn=true;
+    
+    }
   }
 }
 
@@ -160,7 +165,7 @@ void mousePressed() {
     row1=mouseY/gs;
     col1= mouseX/gs;
     firstclick=false;
-  } else {
+  } else if (!firstclick && turn) {
     row2= mouseY/gs;
     col2=mouseX/gs;
     if (!(row2==row1 && col2==col1)) {
