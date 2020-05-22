@@ -1,11 +1,13 @@
 //victoria
 //apr 30
 
-import processing.net.*;
+//* is need in all client 
+
+import processing.net.*; //*
 
 boolean turn=false;
 
-Client myclient;
+Client myclient; //*
 
 int [][] grid;
 
@@ -17,7 +19,7 @@ void setup () {
 
   strokeWeight (10);
 
-  myclient= new Client (this, "127.0.0.1", 1234);
+  myclient= new Client (this, "127.0.0.1", 1234); //*
 }
 
 void draw () {
@@ -51,13 +53,13 @@ void draw () {
   }
   }
 
-  if (myclient.available()>0) {
-    String incoming=myclient.readString();
-    int r= int(incoming.substring (0, 1));
-    int c= int (incoming.substring (2, 3));
-    grid[r][c]=2;
+  if (myclient.available()>0) { //*
+    String incoming=myclient.readString(); //*
+    int r= int(incoming.substring (0, 1)); //*
+    int c= int (incoming.substring (2, 3)); //*
+    grid[r][c]=2; //*
     turn=true;
-  }
+  } //*
 }
 
 void drawXO (int row, int col) {
@@ -83,7 +85,7 @@ void mouseReleased() {
 
   if (turn && grid[row][col]==0) {
     grid [row][col]=1;
-    myclient.write (row+","+ col);
+    myclient.write (row+","+ col); //*
     turn=false;
   }
 }
