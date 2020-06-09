@@ -11,7 +11,7 @@ boolean firstclick;
 int row1, col1, row2, col2;
 int gs=75; //gridsize
 boolean turn=false;
-int timer=5;
+int timer=60;
 int countdown=60;
 
 char grid[][]={
@@ -31,6 +31,8 @@ void setup () {
   textAlign (CENTER, CENTER);
 
   myclient= new Client (this, "127.0.0.1", 1234);
+  
+  firstclick=true;
 
 
   brook = loadImage("blackRook.png");
@@ -77,6 +79,7 @@ void draw() {
   
   if (timer==0) {
   turn=false;
+  timer=60;
   myclient.write ("t");
   }
 }
@@ -140,6 +143,10 @@ void receive() {
   
   if (myclient.available()>0) { 
     String incoming=myclient.readString(); 
+    
+    if (incoming.equals("t")){
+      turn=true;
+    }else {
     int r1= int(incoming.substring (0, 1)); 
     int c1= int (incoming.substring (2, 3)); 
     int r2= int(incoming.substring (4, 5));
@@ -148,6 +155,7 @@ void receive() {
     grid[r1][c1]=' ';
     turn=true;
   }
+}
 }
 
 void mousePressed() {

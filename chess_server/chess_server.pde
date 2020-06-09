@@ -81,6 +81,7 @@ void draw() {
   if (timer==0) {
   turn=false;
   timer=60;
+  myserver.write ("t");
   }
 }
 
